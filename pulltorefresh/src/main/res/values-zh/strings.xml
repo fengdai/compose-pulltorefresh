@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="cptr_pull_to_refresh">下拉刷新</string>
+    <string name="cptr_release_to_refresh">松开刷新</string>
+    <string name="cptr_refreshing">刷新中…</string>
+</resources>
