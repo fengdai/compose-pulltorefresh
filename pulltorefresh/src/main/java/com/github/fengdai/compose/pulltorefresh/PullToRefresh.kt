@@ -197,7 +197,7 @@ private class PullToRefreshNestedScrollConnection(
  * @param refreshTriggerDistance The minimum pull distance which would trigger a refresh.
  * @param refreshingOffset The content's offset when refreshing. By default this will equal to [refreshTriggerDistance].
  * @param indicatorPadding Content padding for the indicator, to inset the indicator in if required.
- * @param indicator the indicator that represents the current state. By default this will use a [PullToRefreshState].
+ * @param indicator the indicator that represents the current state. By default this will use a [PullToRefreshIndicator].
  * @param clipIndicatorToPadding Whether to clip the indicator to [indicatorPadding]. If false is provided the indicator will be clipped to the [content] bounds. Defaults to true.
  * @param content The content containing a scroll composable.
  */
