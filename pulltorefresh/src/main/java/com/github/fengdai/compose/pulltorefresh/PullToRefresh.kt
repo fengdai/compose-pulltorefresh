@@ -162,8 +162,8 @@ private class PullToRefreshNestedScrollConnection(
         state.isPullInProgress = false
 
         return when {
-            // If we're refreshing, consume velocity
-            state.isRefreshing -> available
+            // If we're pulling/refreshing/resting, consume velocity
+            state.contentOffset != 0f -> available
             // Allow the scrolling layout to fling
             else -> Velocity.Zero
         }
