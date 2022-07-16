@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
@@ -28,6 +29,10 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
@@ -225,10 +230,14 @@ fun PullToRefresh(
 
     val refreshingOffsetPx = with(LocalDensity.current) { refreshingOffset.toPx() }
 
-    LaunchedEffect(state.isPullInProgress, state.isRefreshing) {
-        if (!state.isPullInProgress) {
-            state.animateOffsetTo(if (state.isRefreshing) refreshingOffsetPx else 0f)
-        }
+    LaunchedEffect(Unit) {
+        snapshotFlow { !state.isPullInProgress to state.isRefreshing }
+            .distinctUntilChanged()
+            .filter { it.first }
+            .map { it.second }
+            .collectLatest { isRefreshing ->
+                state.animateOffsetTo(if (isRefreshing) refreshingOffsetPx else 0f)
+            }
     }
 
     // Our nested scroll connection, which updates our state.
