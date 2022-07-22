@@ -9,6 +9,7 @@ plugins {
 apply(plugin = "com.vanniktech.maven.publish.base")
 
 android {
+    namespace="com.github.fengdai.compose.pulltorefresh"
     compileSdk = 31
 
     defaultConfig {
