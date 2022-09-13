@@ -44,4 +44,4 @@ dependencies {
 
 [SwipeRefresh]: https://github.com/google/accompanist/blob/main/swiperefresh/README.md
 
-[sample]: sample/src/main/java/com/github/fengdai/compose/pulltorefresh/Custom.kt
+[sample]: sample/src/main/java/com/github/fengdai/compose/pulltorefresh/sample/Custom.kt
