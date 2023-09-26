@@ -202,8 +202,8 @@ private class PullToRefreshNestedScrollConnection(
  * @param modifier The modifier to apply to this layout.
  * @param enabled Whether the the layout should react to pull gestures or not.
  * @param indicatorTextStyle The indicator text style. Default sets to Color.Gray, fontSize = 14.sp.
- * @param indicatorIconSize The indicator icon color. Default sets to Color.Gray.
- * @param indicatorIconColor The indicator icon size. Default sets to 18.dp.
+ * @param indicatorIconSize The indicator icon size. Default sets to 18.dp.
+ * @param indicatorIconColor The indicator icon color. Default sets to Color.Gray.
  * @param dragMultiplier Multiplier that will be applied to pull gestures.
  * @param refreshTriggerDistance The minimum pull distance which would trigger a refresh.
  * @param refreshingOffset The content's offset when refreshing. By default this will equal to [refreshTriggerDistance].
