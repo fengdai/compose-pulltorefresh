@@ -20,14 +20,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -198,11 +201,14 @@ private class PullToRefreshNestedScrollConnection(
  * @param onRefresh Lambda which is invoked when a pull to refresh gesture is completed.
  * @param modifier The modifier to apply to this layout.
  * @param enabled Whether the the layout should react to pull gestures or not.
+ * @param indicatorTextStyle The indicator text style. Default sets to Color.Gray, fontSize = 14.sp.
+ * @param indicatorIconSize The indicator icon color. Default sets to Color.Gray.
+ * @param indicatorIconColor The indicator icon size. Default sets to 18.dp.
  * @param dragMultiplier Multiplier that will be applied to pull gestures.
  * @param refreshTriggerDistance The minimum pull distance which would trigger a refresh.
  * @param refreshingOffset The content's offset when refreshing. By default this will equal to [refreshTriggerDistance].
  * @param indicatorPadding Content padding for the indicator, to inset the indicator in if required.
- * @param indicator the indicator that represents the current state. By default this will use a [PullToRefreshIndicator].
+ * @param indicator The indicator that represents the current state. By default this will use a [PullToRefreshIndicator].
  * @param clipIndicatorToPadding Whether to clip the indicator to [indicatorPadding]. If false is provided the indicator will be clipped to the [content] bounds. Defaults to true.
  * @param content The content containing a scroll composable.
  */
@@ -212,12 +218,15 @@ fun PullToRefresh(
     onRefresh: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    indicatorTextStyle: TextStyle = TextStyle.Default.copy(color = Color.Gray, fontSize = 14.sp),
+    indicatorIconSize: Dp = 18.dp,
+    indicatorIconColor: Color = Color.Gray,
     @FloatRange(from = 0.0, to = 1.0) dragMultiplier: Float = 0.5f,
     refreshTriggerDistance: Dp = 60.dp,
     refreshingOffset: Dp = refreshTriggerDistance,
     indicatorPadding: PaddingValues = PaddingValues(0.dp),
     indicator: @Composable (state: PullToRefreshState, refreshTrigger: Dp, refreshingOffset: Dp) -> Unit = { s, trigger, offset ->
-        PullToRefreshIndicator(s, trigger, offset)
+        PullToRefreshIndicator(s, trigger, offset, indicatorTextStyle, indicatorIconSize, indicatorIconColor)
     },
     clipIndicatorToPadding: Boolean = true,
     content: @Composable () -> Unit,

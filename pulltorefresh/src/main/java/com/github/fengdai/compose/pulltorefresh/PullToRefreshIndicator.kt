@@ -28,15 +28,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun PullToRefreshIndicator(
     state: PullToRefreshState,
     refreshTriggerDistance: Dp,
     refreshingOffset: Dp,
-    modifier: Modifier = Modifier,
-    textStyle: TextStyle = TextStyle.Default.copy(color = Color.Gray, fontSize = 14.sp),
+    indicatorTextStyle: TextStyle,
+    indicatorIconSize: Dp,
+    indicatorIconColor: Color,
+    modifier: Modifier = Modifier
 ) {
     val refreshTriggerPx = with(LocalDensity.current) { refreshTriggerDistance.toPx() }
     val refreshingOffsetPx = with(LocalDensity.current) { refreshingOffset.toPx() }
@@ -71,9 +72,9 @@ fun PullToRefreshIndicator(
                 contentDescription = "refreshing",
                 modifier = Modifier
                     .padding(end = 8.dp)
-                    .size(18.dp)
+                    .size(indicatorIconSize)
                     .rotate(progress * 360),
-                colorFilter = ColorFilter.tint(textStyle.color)
+                colorFilter = ColorFilter.tint(indicatorIconColor)
             )
         } else {
             val progress = ((state.contentOffset - refreshTriggerPx / 2) / refreshTriggerPx * 2)
@@ -83,9 +84,9 @@ fun PullToRefreshIndicator(
                 contentDescription = "pull to refresh",
                 modifier = Modifier
                     .padding(end = 8.dp)
-                    .size(18.dp)
+                    .size(indicatorIconSize)
                     .rotate(progress * 180),
-                colorFilter = ColorFilter.tint(textStyle.color)
+                colorFilter = ColorFilter.tint(indicatorIconColor)
             )
         }
         BasicText(
@@ -96,7 +97,7 @@ fun PullToRefreshIndicator(
                     else -> R.string.cptr_pull_to_refresh
                 }
             ),
-            style = textStyle
+            style = indicatorTextStyle
         )
     }
 }
